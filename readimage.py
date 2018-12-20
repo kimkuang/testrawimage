@@ -12,18 +12,23 @@ import os,sys
 # ===================================
 # raw image and set up the metadata
 # ===================================
-image_name = "F:/git/ISP/image_process_v0.0/images/8034.raw"
+image_name = "images/8034.raw"
 input_bits = 10
 input_format = "rggb"
 input_width = 3264
 input_height = 2448
-output_bits = 8
+output_bits = 10
 # 利用numpydefromfile函数读取raw文件，并指定数据格式
 # imgData = np.fromfile("F:/git/ISP/image_process_v0.0/images/" + image_name + ".raw", dtype=type)
 imageData_0, data_4chennels = utility.readRawData(image_name, input_bits, input_format, input_width, input_height, output_bits)
 
 ratio = 2**(input_bits - 8)
 
+print(ratio)
+
+imageData_0 = imageData_0 / ratio
+
+print(imageData_0)
 '''
 #imgData = imgData.reshape(height, width, channels)
 imgData = imgData / 4
@@ -82,8 +87,7 @@ while i < height :
     i = i + 2
 '''
 
-cv2.imwrite('F:/git/ISP/image_process_v0.0/images/8034_test_color.bmp', (imageData_0 / ratio))
-
+cv2.imwrite('images/8034_test_color.bmp', imageData_0)
 
 # 展示图像
 #cv2.imshow('img',imageData_0)
